@@ -30,7 +30,6 @@ void Save_Production(ProductionSalver* salver, Production prod)
         salver->productions = realloc(salver->productions, sizeof(Production) * salver->capacity);
     }
     salver->productions[salver->len_productions++] = prod;
-
 }
 
 void Free_Production(Production* prod)
