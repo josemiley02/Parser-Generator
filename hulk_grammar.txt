@@ -1,0 +1,90 @@
+W       -> S
+S       -> Program
+
+Program -> FunctionDef Program
+Program -> P OpEnd
+
+P      -> Exp
+P      -> Block
+
+Exp    -> IfExp
+Exp    -> LetIn
+Exp    -> LogicOr
+
+Block -> { ExpList }
+
+ExpList -> P ; ExpList
+ExpList -> ε
+
+IfExp  -> if ( Exp ) P OpEnd ElifList else P OpEnd
+
+ElifList -> elif ( Exp ) P OpEnd ElifList
+ElifList -> ε
+
+LetIn   -> let AssignList in P OpEnd
+
+AssignList -> id = Exp MoreAssign
+AssignList -> ε
+
+MoreAssign -> , id = Exp MoreAssign
+MoreAssign -> ε
+
+LogicOr -> LogicAnd OpOr
+OpOr    -> LogicAnd OpOr
+OpOr    -> ε
+
+LogicAnd -> Compare OpAnd
+OpAnd    -> & Compare OpAnd
+OpAnd    -> ε
+
+Compare -> S OpCompare
+OpCompare -> == X OpCompare
+OpCompare -> != X OpCompare
+OpCompare -> < X OpCompare
+OpCompare -> > X OpCompare
+OpCompare -> <= X OpCompare
+OpCompare -> >= X OpCompare
+OpCompare -> ε
+
+X      -> F Op1
+Op1    -> + X Op1
+Op1    -> - X Op1
+Op1    -> @ X Op1
+Op1    -> @@ X Op1
+Op1    -> ε
+
+F      -> T Op3
+Op3    -> ** T Op3
+Op3    -> ^ T Op3
+Op3    -> ε
+
+T      -> num
+T      -> id TRest
+T      -> pred_func (ArgListCall)
+T      -> string
+T      -> ( Exp )
+T      -> - T
+T      -> PI
+T      -> E
+T      -> true
+T      -> false
+T      -> ! T
+
+TRest  -> ( ArgListCall )
+TRest  -> := Exp             
+TRest  -> ε                  
+
+FunctionDef -> function id ( ArgList ) => Exp ;
+FunctionDef -> function id ( ArgList ) Block
+
+ArgList -> id MoreArgs
+ArgList -> ε
+
+MoreArgs -> , id MoreArgs
+MoreArgs -> ε
+
+ArgListCall -> Exp MoreArgsCall
+ArgListCall -> ε
+
+MoreArgsCall -> , Exp MoreArgsCall
+MoreArgsCall -> ε
