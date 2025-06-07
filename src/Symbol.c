@@ -60,6 +60,8 @@ void Find_Terminal_Symbols(SymbolTable* table, ProductionSalver* salver)
             table->symbols[table->len_table++] = s;
         }
     }
+    Symbol dolar = Create_Symbol("$", true);
+    table->symbols[table->len_table++] = dolar;
 }
 
 void Free_Symbol(Symbol* symbol)

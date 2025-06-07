@@ -30,7 +30,7 @@ void Init_Set_Table(FirstSetTable* set_table, SymbolTable* symbol_table, Product
     Compute_First_Sets(set_table, symbol_table, prod_salver);
 }
 
-bool Add_To_Set(FirstSet* set, Symbol* symbol)
+bool Add_To_First_Set(FirstSet* set, Symbol* symbol)
 {
     if (set->cardinality >= set->total_cardinality)
     {
@@ -81,7 +81,7 @@ void Compute_First_Sets(FirstSetTable* set_table, SymbolTable* symbol_table, Pro
                 {
                     if(strcmp(first_xi->symbols[sym]->Name, "ε") != 0)
                     {
-                        if(Add_To_Set(first_A, first_xi->symbols[sym]))
+                        if(Add_To_First_Set(first_A, first_xi->symbols[sym]))
                             changed = true;
                     }
                     else have_epsilon = true;
@@ -95,7 +95,7 @@ void Compute_First_Sets(FirstSetTable* set_table, SymbolTable* symbol_table, Pro
             if(prefix)
             {
                 Symbol* e = Get_Symbol(symbol_table, "ε");
-                if(Add_To_Set(first_A, e))
+                if(Add_To_First_Set(first_A, e))
                     changed = true;
             }
         }
