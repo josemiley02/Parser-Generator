@@ -1,4 +1,4 @@
-#include "Symbol.h"
+#include "../includes/Global/Symbol.h"
 
 Symbol Create_Symbol(char* name, bool isTerminal)
 {

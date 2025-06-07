@@ -1,4 +1,4 @@
-#include "Follow.h"
+#include "../includes/Global/Follow.h"
 
 void Init_Follow_Set_Table(FollowSetTable* follow_table, FirstSetTable* first_table, 
     SymbolTable* symbol_table, ProductionSalver* salver)

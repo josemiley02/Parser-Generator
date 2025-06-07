@@ -1,4 +1,4 @@
-#include "Read_Grammar.h"
+#include "../includes/Global/Read_Grammar.h"
 
 #define MAX_LINE 512
 #define MAX_SYMBOLS 64

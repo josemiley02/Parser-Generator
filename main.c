@@ -9,14 +9,14 @@ int main() {
     
     Load_Grammar_From_File("./grammar/hulk_grammar.txt", &salver);
 
-    // for (int i = 0; i < salver.len_productions; ++i) {
-    //     Production p = salver.productions[i];
-    //     printf("%s -> ", p.lhs);
-    //     for (int j = 0; j < p.len_rhs; ++j) {
-    //         printf("%s ", p.rhs[j]);
-    //     }
-    //     printf("\n");
-    // }
+    for (int i = 0; i < salver.len_productions; ++i) {
+        Production p = salver.productions[i];
+        printf("%s -> ", p.lhs);
+        for (int j = 0; j < p.len_rhs; ++j) {
+            printf("%s ", p.rhs[j]);
+        }
+        printf("\n");
+    }
 
     SymbolTable table;
     Init_Symbol_Table(&table, &salver);
@@ -54,7 +54,7 @@ int main() {
         }
         printf("} \n");
     }
-    
+
     Free_Production_Salver(&salver);
     Free_Symbol_Table(&table);
     Free_Set_Table(&set_table);
