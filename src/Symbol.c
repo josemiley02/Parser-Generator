@@ -7,6 +7,17 @@ Symbol Create_Symbol(char* name, bool isTerminal)
     s.IsTerminal = isTerminal;
     return s;
 }
+Symbol* Get_Symbol(SymbolTable* table, char* symbol_name)
+{
+    for (int i = 0; i < table->len_table; i++)
+    {
+        if (strcmp(table->symbols[i].Name, symbol_name) == 0)
+        {
+            return &table->symbols[i];
+        }
+    }
+    return NULL;
+}
 bool ContainSymbol(SymbolTable* table, char* symbol_name)
 {
     for (int i = 0; i < table->len_table; i++)

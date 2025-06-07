@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "production.h": "c",
+        "symbol.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
+}

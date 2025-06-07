@@ -1,5 +1,6 @@
 #include "includes/Read_Grammar.h"
 #include "includes/Symbol.h"
+#include "includes/First.h"
 
 int main() {
     ProductionSalver salver;
@@ -25,8 +26,22 @@ int main() {
         printf("%-10s : %s\n", s.Name, s.IsTerminal ? "Terminal" : "No Terminal");
     }
     
+    FirstSetTable set_table;
+    Init_Set_Table(&set_table, &table, &salver);
 
+    for (int i = 0; i < set_table.len_sets; i++)
+    {
+        FirstSet set = set_table.sets[i];
+        printf("First(%s) = {", set.key->Name);
+        for (int j = 0; j < set.cardinality; j++)
+        {
+            printf("%s, ",set.symbols[j]->Name);
+        }
+        printf("} \n");
+    }
+    
     Free_Production_Salver(&salver);
     Free_Symbol_Table(&table);
+    Free_Set_Table(&set_table);
     return 0;
 }

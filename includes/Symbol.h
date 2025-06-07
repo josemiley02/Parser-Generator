@@ -17,6 +17,7 @@ typedef struct SymbolTable
 }SymbolTable;
 
 Symbol Create_Symbol(char* name, bool isTerminal);
+Symbol* Get_Symbol(SymbolTable* table, char* symbol_name);
 void Init_Symbol_Table(SymbolTable* table,ProductionSalver* salver);
 void Find_No_Terminal_Symbols(SymbolTable* table, ProductionSalver* salver);
 void Find_Terminal_Symbols(SymbolTable* table, ProductionSalver* salver);
