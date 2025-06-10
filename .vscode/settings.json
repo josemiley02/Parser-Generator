@@ -2,7 +2,9 @@
     "files.associations": {
         "production.h": "c",
         "symbol.h": "c",
-        "first.h": "c"
+        "first.h": "c",
+        "follow.h": "c",
+        "read_grammar.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

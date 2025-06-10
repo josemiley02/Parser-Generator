@@ -17,11 +17,12 @@ typedef struct SymbolTable
 }SymbolTable;
 
 Symbol Create_Symbol(char* name, bool isTerminal);
-Symbol* Get_Symbol(SymbolTable* table, char* symbol_name);
+bool Get_Symbol(SymbolTable* table, char* symbol_name, Symbol s);
 void Init_Symbol_Table(SymbolTable* table,ProductionSalver* salver);
 void Find_No_Terminal_Symbols(SymbolTable* table, ProductionSalver* salver);
 void Find_Terminal_Symbols(SymbolTable* table, ProductionSalver* salver);
 void Free_Symbol(Symbol* symbol);
 void Free_Symbol_Table(SymbolTable* table);
 bool ContainSymbol(SymbolTable* table, char* symbol_name);
+bool Equals_Symbols(Symbol* s1, Symbol* s2);
 #endif

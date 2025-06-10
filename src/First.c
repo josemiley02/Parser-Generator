@@ -8,10 +8,10 @@ void Init_Set_Table(FirstSetTable* set_table, SymbolTable* symbol_table, Product
 
     for (int i = 0; i < symbol_table->len_table; i++)
     {
-        Symbol* s = &symbol_table->symbols[i];
+        Symbol s = symbol_table->symbols[i];
         FirstSet set;
         set.key = s;
-        if (s -> IsTerminal)
+        if (s.IsTerminal)
         {
             set.cardinality = 1;
             set.total_cardinality = 1;
@@ -30,7 +30,7 @@ void Init_Set_Table(FirstSetTable* set_table, SymbolTable* symbol_table, Product
     Compute_First_Sets(set_table, symbol_table, prod_salver);
 }
 
-bool Add_To_First_Set(FirstSet* set, Symbol* symbol)
+bool Add_To_First_Set(FirstSet* set, Symbol symbol)
 {
     if (set->cardinality >= set->total_cardinality)
     {
@@ -39,7 +39,7 @@ bool Add_To_First_Set(FirstSet* set, Symbol* symbol)
     }
     for (int i = 0; i < set->cardinality; i++)
     {
-        if(strcmp(set->symbols[i]->Name,symbol->Name) == 0) return false;
+        if(strcmp(set->symbols[i].Name, symbol.Name) == 0) return false;
     }
     set->symbols[set->cardinality++] = symbol;
     return true;
@@ -49,7 +49,7 @@ FirstSet* Get_First_Set(FirstSetTable* set_table, Symbol* symbol)
 {
     for (int i = 0; i < set_table->len_sets; i++)
     {
-        if(strcmp(set_table->sets[i].key->Name, symbol->Name) == 0)
+        if(strcmp(set_table->sets[i].key.Name, symbol->Name) == 0)
         {
             return &set_table->sets[i];
         }
@@ -65,21 +65,23 @@ void Compute_First_Sets(FirstSetTable* set_table, SymbolTable* symbol_table, Pro
         changed = false;
         for (int i = 0; i < prod_salver->len_productions; i++)
         {
-            Symbol* A = Get_Symbol(symbol_table, prod_salver->productions[i].lhs);
+            Symbol A;
+            Get_Symbol(symbol_table, prod_salver->productions[i].lhs, A);
             char** RHS = prod_salver->productions[i].rhs;
 
-            FirstSet* first_A = Get_First_Set(set_table, A);
+            FirstSet* first_A = Get_First_Set(set_table, &A);
             bool prefix = true;
             bool have_epsilon = false;
             int j = 0;
             while (j < prod_salver->productions[i].len_rhs)
             {
-                Symbol* Xi = Get_Symbol(symbol_table, RHS[j]);
-                FirstSet* first_xi = Get_First_Set(set_table, Xi);
+                Symbol Xi; 
+                Get_Symbol(symbol_table, RHS[j], Xi);
+                FirstSet* first_xi = Get_First_Set(set_table, &Xi);
 
                 for (int sym = 0; sym < first_xi->cardinality; sym++)
                 {
-                    if(strcmp(first_xi->symbols[sym]->Name, "ε") != 0)
+                    if(strcmp(first_xi->symbols[sym].Name, "ε") != 0)
                     {
                         if(Add_To_First_Set(first_A, first_xi->symbols[sym]))
                             changed = true;
@@ -94,7 +96,8 @@ void Compute_First_Sets(FirstSetTable* set_table, SymbolTable* symbol_table, Pro
             }
             if(prefix)
             {
-                Symbol* e = Get_Symbol(symbol_table, "ε");
+                Symbol e;
+                if(Get_Symbol(symbol_table, "ε", e));
                 if(Add_To_First_Set(first_A, e))
                     changed = true;
             }

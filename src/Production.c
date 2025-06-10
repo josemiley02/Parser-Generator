@@ -67,3 +67,29 @@ void Print_Productions(const ProductionSalver* salver)
         printf("\n");
     }
 }
+
+bool Equals_Productions(Production* p1, Production* p2)
+{
+    if(p1->len_rhs != p2->len_rhs) return false;
+    if(strcmp(p1->lhs, p2->lhs) != 0) return false;
+    for (int i = 0; i < p1->len_rhs; i++)
+    {
+        if(strcmp(p1->rhs[i], p2->rhs[i]) != 0) return false;
+    }
+    return true;
+}
+
+ProductionSalver* Get_Productions(char* lhs, ProductionSalver* salver)
+{
+    ProductionSalver result_salver;
+    result_salver.len_productions = 0;
+    result_salver.capacity = salver->len_productions;
+    for (int i = 0; i < salver->len_productions; i++)
+    {
+        if(strcmp(salver->productions[i].lhs, lhs))
+        {
+            result_salver.productions[result_salver.len_productions++] = salver->productions[i];
+        }
+    }
+    return &result_salver;
+}
